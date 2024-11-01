@@ -8,28 +8,27 @@
     <h1>Hola!</h1>
     <p>Llegaste al Pokedex Web,tu lugar pokemon...</p>
 
-
-
-
     <div class="row row-cols-1 row-cols-md-3 g-4">
+        <asp:Repeater ID="repRepetidor" runat="server">
+            <ItemTemplate>
 
-        <%-- Agregando foreach para que cree una card por cada pokemon en la base de datos --%>
+                <div class="col">
+                    <div class="card">
+                        <%-- Con el repeater debemos usar #Eval(propiedad de la lista) --%>
+                        <img src="<%#Eval("UrlImagen")%>" class="card-img-top" alt="...">
 
-        <% foreach (dominio.Pokemon poke in ListaPokemon)
-            { %>
-        <div class="col">
-            <div class="card">
-                <%-- Es relevante que despues del <% pongamos un ":" --%>
-                <img src="<%: poke.UrlImagen %>" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title"><%: poke.Nombre %></h5>
-                    <p class="card-text"><%: poke.Descripcion %></p>
+                        <div class="card-body">
+                            <h5 class="card-title"><%#Eval("Nombre")%></h5>
+                            <p class="card-text"><%#Eval("Descripcion")%></p>
+                            <%-- El CommandArgument recibe el Eval solo entre '' --%>
+                            <asp:Button Text="Detalle" CssClass="btn btn-primary" runat="server" ID="btnDetalle" CommandArgument='<%#Eval("Id")%>' CommandName="PokemonId" OnClick="btnDetalle_Click" />
+                        </div>
+
+                    </div>
                 </div>
-            </div>
-        </div>
+            </ItemTemplate>
+        </asp:Repeater>
 
-
-        <%}%>
 
 
     </div>
